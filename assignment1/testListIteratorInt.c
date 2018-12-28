@@ -511,6 +511,133 @@ START_TEST(test_find_previous_case)
     }
 END_TEST
 
+START_TEST(test_set_cases)
+    {
+        // test
+        int val, result;
+        int *vp1;
+
+        int params[9] = {20, 12, 15, 5, 14, 10, 5, 9, 3};
+
+        // value
+        IteratorInt it1 = IteratorIntNew();
+
+        for (int i = 0; i < 9; i++) {
+            result = add(it1, params[i]);
+            fail_unless(result == 1, "error, add(it1, %d) != 1", params[i]);
+        }
+
+        // 20 12 15 5 14 10 5 9 3 ^
+        // set
+        print(it1);
+        result = set(it1,1000);
+        fail_unless(result == 0, "error, set(it1,1000) != 0");
+
+        print(it1);
+        // check has previous
+        result = hasPrevious(it1);
+        fail_unless(result == 1, "error, hasPrevious(it1) != 1");
+
+        // 20 12 15 5 14 10 5 9 ^ 3
+        vp1 = previous(it1);
+        fail_unless(*vp1 == 3, "error, previous(it1) != 3, current value is :%d", *vp1);
+
+        // set
+        // 20 12 15 5 14 10 5 9 ^ 1000
+        result = set(it1,1000);
+        fail_unless(result == 1, "error, set(it1,1000) != 1");
+
+        // set
+        result = set(it1,1000);
+        fail_unless(result == 0, "error, set(it1,1000) != 0");
+
+        // check has previous
+        result = hasNext(it1);
+        fail_unless(result == 1, "error, hasNext(it1) != 1");
+
+        vp1 = next(it1);
+        // 20 12 15 5 14 10 5 9 1000 ^
+        fail_unless(*vp1 == 1000, "error, next(it1) != 1000, current value is :%d", *vp1);
+
+
+        result = hasPrevious(it1);
+        fail_unless(result == 1, "error, hasPrevious(it1) != 1");
+
+        result = set(it1,1001);
+        fail_unless(result == 0, "error, set(it1,1000) != 0");
+
+        // ^ 20 12 15 5 14 10 5 9 1000
+        reset(it1);
+
+        result = set(it1,1001);
+        fail_unless(result == 0, "error, set(it1,1000) != 0");
+
+        vp1 = next(it1);
+        // 20 ^ 12 15 5 14 10 5 9 1000
+        fail_unless(*vp1 == 20, "error, next(it1) != 20, current value is :%d", *vp1);
+
+        result = set(it1,1001);
+        // 1001 ^ 12 15 5 14 10 5 9 1000
+        fail_unless(result == 1, "error, set(it1,1000) != 1");
+
+        vp1 = previous(it1);
+        // ^ 1001 12 15 5 14 10 5 9 1000
+        fail_unless(*vp1 == 1001, "error, previous(it1) != 1001, current value is :%d", *vp1);
+
+        vp1 = findNext(it1,15);
+        // 1001 12 15 ^ 5 14 10 5 9 1000
+        fail_unless(*vp1 == 15, "error, findNext(it1,15) != 15, current value is :%d", *vp1);
+
+        result = set(it1,1100);
+        // 1001 12 1100 ^ 5 14 10 5 9 1000
+        fail_unless(result == 1, "error, set(it1,1100) != 1");
+
+        vp1 = previous(it1);
+        // 1001 12 ^ 1100 5 14 10 5 9 1000
+        fail_unless(*vp1 == 1100, "error, previous(it1) != 1100, current value is :%d", *vp1);
+
+        vp1 = findPrevious(it1,12);
+        // 1001 ^ 12 1100 5 14 10 5 9 1000
+        fail_unless(*vp1 == 12, "error, findPrevious(it1,12) != 12, current value is :%d", *vp1);
+
+        result = set(it1,1200);
+        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        fail_unless(result == 1, "error, set(it1,1200) != 1");
+
+        result = set(it1,1500);
+        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        fail_unless(result == 0, "error, set(it1,1500) != 0");
+
+        vp1 = findNext(it1,1000);
+        // 1001 1200 1100 5 14 10 5 9 1000 ^
+        fail_unless(*vp1 == 1000, "error, findNext(it1,1000) != 1000, current value is :%d", *vp1);
+
+        vp1 = findPrevious(it1,5000);
+        // 1001 1200 1100 5 14 10 5 9 1000 ^
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,5000) != NULL, current value is :%d", *vp1);
+
+        result = set(it1,1500);
+        // 1001 1200 1100 5 14 10 5 9 1500 ^
+        fail_unless(result == 1, "error, set(it1,1500) != 1");
+
+        vp1 = previous(it1);
+        // 1001 1200 1100 5 14 10 5 9 ^ 1500
+        fail_unless(*vp1 == 1500, "error, previous(it1) != 1500, current value is :%d", *vp1);
+
+
+        result = add(it1,10000);
+        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1500
+        fail_unless(result == 1, "error, set(it1,1200) != 1");
+
+        result = set(it1,20000);
+        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1500
+        fail_unless(result == 0, "error, set(it1,20000) != 0");
+
+        freeIt(it1);
+
+    }
+END_TEST
+
 Suite *make_add_suite(void) {
     // 建立Suite
     Suite *s = suite_create("COMP9024 Assignment 1");
@@ -532,6 +659,9 @@ Suite *make_add_suite(void) {
     tcase_add_test(tc_case, test_next_case);
     // 测试find next
     tcase_add_test(tc_case, test_find_next_case);
+
+    // 测试set 的操作
+    tcase_add_test(tc_case, test_set_cases);
 
     // test find previous
     tcase_add_test(tc_case, test_find_previous_case);
