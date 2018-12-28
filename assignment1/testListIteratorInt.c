@@ -529,11 +529,9 @@ START_TEST(test_set_cases)
 
         // 20 12 15 5 14 10 5 9 3 ^
         // set
-        print(it1);
         result = set(it1,1000);
         fail_unless(result == 0, "error, set(it1,1000) != 0");
 
-        print(it1);
         // check has previous
         result = hasPrevious(it1);
         fail_unless(result == 1, "error, hasPrevious(it1) != 1");

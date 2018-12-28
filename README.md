@@ -52,6 +52,59 @@ printf("%d",a[i++]);
 ```
 上面的i++实际上是-1，此时越界，导致出现Segmentation fault
 
+关于测试的时候出现异常的故障排除方式可以采用以下两种方式：
+
+1.在listIteratorInt.h文件里面添加方法
+```
+void print(IteratorInt it);
+```
+在listIteratorInt.c文件里面按照老师的格式打印输出列表的内容：
+```
+1001 1200 1100 ^ 5 14 10 5 9 1000
+```
+然后在测试的脚本文件testListIteratorInt.c 调用print方法，实时输出结果
+```
+result = set(it1,1000);
+print(it1);
+fail_unless(result == 0, "error, set(it1,1000) != 0");
+```
+这样就可以看到每一步的数据情况
+
+2.是将testListIteratorInt.c 中出错的测试case，拿出来单独测试。
+
+即写到一个main方法里面，采用debug的方式单独调试该case。
+```
+int main(void) {
+    // test
+    int val, result;
+    int *vp1;
+
+    int params[9] = {20, 12, 15, 5, 14, 10, 5, 9, 3};
+
+    // value
+    IteratorInt it1 = IteratorIntNew();
+
+    for (int i = 0; i < 9; i++) {
+        result = add(it1, params[i]);
+    }
+
+    // 20 12 15 5 14 10 5 9 3 ^
+    // set
+    print(it1);
+    result = set(it1,1000);
+
+    print(it1);
+    // check has previous
+    result = hasPrevious(it1);
+
+    print(it1);
+    // 20 12 15 5 14 10 5 9 ^ 3
+    vp1 = previous(it1);
+
+    print(it1);
+
+}
+```
 
 
 
