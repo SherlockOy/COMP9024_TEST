@@ -33,6 +33,7 @@ testListIteratorInt.c:509:P:test_cases:test_find_previous_case:0: Passed
 4.Passed    表示当前的测试case全部通过
 
 常见错误说明：
+
 1.Segmentation fault
 ```
 testListIteratorInt.c:15:E:test_cases:test_add:0: (after this point) Received signal 11 (Segmentation fault: 11)
