@@ -23,9 +23,13 @@ testListIteratorInt.c:471:P:test_cases:test_find_next_case:0: Passed
 testListIteratorInt.c:509:P:test_cases:test_find_previous_case:0: Passed
 ```
 解释如下：
+
 1.Checks    表示的是进行了6大项的check
+
 2.Failures  表示测试失败。
+
 3.Errors    表示测试出现了异常
+
 4.Passed    表示当前的测试case全部通过
 
 常见错误说明：
