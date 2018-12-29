@@ -722,6 +722,72 @@ START_TEST(test_set_cases)
     }
 END_TEST
 
+START_TEST(test_delete_case)
+    {
+        // test
+        int val, result;
+        int *vp1;
+
+        int params[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        // value
+        IteratorInt it1 = IteratorIntNew();
+
+        for (int i = 0; i < 10; i++) {
+            result = add(it1, params[i]);
+                    fail_unless(result == 1, "error, add(it1, %d) != 1", params[i]);
+        }
+
+        // 1 2 3 4 5 6 7 8 9 10 ^
+        result = deleteElm(it1);
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        // 1 2 3 4 5 6 7 8 9 10 ^
+        result = hasNext(it1);
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        result = hasPrevious(it1);
+        fail_unless(result == 1, "error, deleteElm(it1) != 1");
+
+        vp1 = previous(it1);
+        // 1 2 3 4 5 6 7 8 9 ^ 10
+        fail_unless(*vp1 == 10, "error, previous(it1) != 10, current value is :%d", *vp1);
+
+        result = set(it1, 1000);
+        // 1 2 3 4 5 6 7 8 9 ^ 1000
+        fail_unless(result == 1, "error, set(it1, 1000) != 1");
+
+        result = deleteElm(it1);
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        vp1 = next(it1);
+        // 1 2 3 4 5 6 7 8 9 1000 ^
+        fail_unless(*vp1 == 1000, "error, previous(it1) != 1000, current value is :%d", *vp1);
+
+        result = deleteElm(it1);
+        // 1 2 3 4 5 6 7 8 9 ^
+        fail_unless(result == 1, "error, deleteElm(it1) != 0");
+
+        result = deleteElm(it1);
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        vp1 = previous(it1);
+        // 1 2 3 4 5 6 7 8 ^ 9
+        fail_unless(*vp1 == 9, "error, previous(it1) != 10, current value is :%d", *vp1);
+
+        result = deleteElm(it1);
+        // 1 2 3 4 5 6 7 8 ^
+        fail_unless(result == 1, "error, deleteElm(it1) != 0");
+
+        result = set(it1, 2000);
+        fail_unless(result == 0, "error, set(it1, 2000) != 0");
+
+        freeIt(it1);
+    }
+END_TEST
+
+
+
 Suite *make_add_suite(void) {
     // 建立Suite
     Suite *s = suite_create("COMP9024 Assignment 1");
@@ -746,6 +812,9 @@ Suite *make_add_suite(void) {
 
     // 测试set 的操作
     tcase_add_test(tc_case, test_set_cases);
+
+    // 测试delete
+    tcase_add_test(tc_case, test_delete_case);
 
     // 测试next,previous,find next,find previous 的操作
     tcase_add_test(tc_case, test_find_previous_next_case);
