@@ -777,7 +777,7 @@ START_TEST(test_delete_case)
 
         result = deleteElm(it1);
         // 1 2 3 4 5 6 7 8 ^
-        fail_unless(result == 1, "error, deleteElm(it1) != 0");
+        fail_unless(result == 1, "error, deleteElm(it1) != 1");
 
         result = set(it1, 2000);
         fail_unless(result == 0, "error, set(it1, 2000) != 0");
