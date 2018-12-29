@@ -528,7 +528,6 @@ START_TEST(test_find_previous_next_case)
         }
 
         // 1 2 3 4 5 6 7 8 9 10 ^
-
         result = hasNext(it1);
                 fail_unless(result == 0, "error, hasNext(it1) != 0");
 
@@ -566,7 +565,7 @@ START_TEST(test_find_previous_next_case)
         // 1 2 3 4 5 6 7 8 9 10 ^
         // 之前的next的内容需要保留，因此还是原来的next查询的结果：10
         vp1 = findNext(it1,2);
-        fail_unless(*vp1 == 10, "error, findNext(it1,2) != 10");
+        fail_unless(vp1 == NULL, "error, findNext(it1,2) != NULL");
 
         vp1 = findPrevious(it1,2);
         // 1 ^ 2 3 4 5 6 7 8 9 10
@@ -578,19 +577,19 @@ START_TEST(test_find_previous_next_case)
         fail_unless(*vp1 == 10, "error, findNext(it1,10) != 10,current value is %d",*vp1);
         // print(it1);
         vp1 = findNext(it1,10);
-        fail_unless(*vp1 == 10, "error, findNext(it1,10) != 10,current value is %d",*vp1);
+        fail_unless(vp1 == NULL, "error, findNext(it1,10) != NULL");
         vp1 = findNext(it1,1000);
-        fail_unless(*vp1 == 10, "error, findNext(it1,1000) != 10,current value is %d",*vp1);
+        fail_unless(vp1 == NULL, "error, findNext(it1,1000) != NULL");
 
         vp1 = findPrevious(it1,1);
         // ^ 1 2 3 4 5 6 7 8 9 10
         fail_unless(*vp1 == 1, "error, findPrevious(it1,1) != 1,current value is %d",*vp1);
 
         vp1 = findPrevious(it1,1);
-        fail_unless(*vp1 == 1, "error, findPrevious(it1,1) != 1,current value is %d",*vp1);
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,1) != NULL");
 
         vp1 = findPrevious(it1,1000);
-        fail_unless(*vp1 == 1, "error, findPrevious(it1,1000) != 1,current value is %d",*vp1);
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,1000) != NULL");
 
         freeIt(it1);
 
@@ -699,15 +698,15 @@ START_TEST(test_set_cases)
         vp1 = findPrevious(it1, 5000);
         // 1001 1200 1100 5 14 10 5 9 1000 ^
         // 因为没有找到，所以原来的位置不变
-        fail_unless(*vp1 == 1000, "error, findPrevious(it1,5000) != 1000, current value is :%d", *vp1);
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,5000) != NULL");
 
         result = set(it1, 1500);
-        // 1001 1200 1100 5 14 10 5 9 1500 ^
-                fail_unless(result == 1, "error, set(it1,1500) != 1");
+        // 1001 1200 1100 5 14 10 5 9 1000 ^
+                fail_unless(result == 0, "error, set(it1,1500) != 0");
 
         vp1 = previous(it1);
-        // 1001 1200 1100 5 14 10 5 9 ^ 1500
-                fail_unless(*vp1 == 1500, "error, previous(it1) != 1500, current value is :%d", *vp1);
+        // 1001 1200 1100 5 14 10 5 9 ^ 1000
+                fail_unless(*vp1 == 1000, "error, previous(it1) != 1000, current value is :%d", *vp1);
 
 
         result = add(it1, 10000);
