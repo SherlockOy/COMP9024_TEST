@@ -2,7 +2,7 @@
 // Created by 牟瑞 on 2018-12-19.
 //
 
-#include "/import/cage/4/z5144248/check_install/include/check.h"
+#include "/usr/local/include/check.h"
 #include "listIteratorInt.h"
 #include <stdlib.h>
 #include <stdio.h>
