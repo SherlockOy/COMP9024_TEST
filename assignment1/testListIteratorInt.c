@@ -801,13 +801,13 @@ START_TEST(test_free_case)
         freeIt(it1);
 
         reset(it1);
-        printf("address of it1 %p\n",&it1);
+        // printf("address of it1 %p\n",&it1);
         result = hasNext(it1);
-        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+        fail_unless(result == 0, "error, hasNext(it1) != 0");
 
-        printf("address of it1 %p \n",&it1);
+        // printf("address of it1 %p \n",&it1);
         result = hasPrevious(it1);
-        printf("address of it1 %p \n",&it1);
+        // printf("address of it1 %p \n",&it1);
         // print(it1);
         fail_unless(result == 0, "error, hasPrevious(it1) != 0,result value is %d",result);
 
