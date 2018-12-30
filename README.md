@@ -1,5 +1,5 @@
 # COMP9024_TEST
-说明：
+<span style="color:red">说明</span>：
 此git仓库主要是存放测试相关的case文件，主要采用的是c语言的check测试框架
 check测试框架的官方地址为：https://libcheck.github.io/check/
 
