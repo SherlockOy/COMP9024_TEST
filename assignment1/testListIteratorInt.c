@@ -44,6 +44,9 @@ START_TEST(test_add)
             vp1 = next(it1);
                     fail_unless(*vp1 == params[i], "error, next(it1) != %d", params[i]);
         }
+
+        // release
+        freeIt(it1);
     }
 END_TEST
 
@@ -88,6 +91,8 @@ START_TEST(test_iterator_init_null)
 
         result = deleteElm(it1);
                 fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        freeIt(it1);
 
     }
 END_TEST
@@ -377,6 +382,8 @@ START_TEST(test_teacher_given_cases)
         */
         result = deleteElm(it1);
                 fail_unless(result == 1, "error, deleteElm(it1) != 1");
+
+        freeIt(it1);
     }
 END_TEST
 
@@ -426,6 +433,8 @@ START_TEST(test_next_case)
                 fail_unless(result == 1, "error, hasNext(it1) != 1");
         result = hasPrevious(it1);
                 fail_unless(result == 0, "error, hasPrevious(it1) != 0");
+
+        freeIt(it1);
     }
 END_TEST
 
@@ -470,6 +479,8 @@ START_TEST(test_find_next_case)
         vp1 = previous(it1);
                 fail_unless(*vp1 == 5, "error, previous(it1) != 5");
 
+        freeIt(it1);
+
     }
 END_TEST
 
@@ -507,6 +518,8 @@ START_TEST(test_find_previous_case)
 
         vp1 = findPrevious(it1, 5);
                 fail_unless(*vp1 == 5, "error, findPrevious(it1) != 5");
+
+        freeIt(it1);
 
     }
 END_TEST
@@ -786,6 +799,113 @@ START_TEST(test_delete_case)
     }
 END_TEST
 
+START_TEST(test_free_case)
+    {
+        // test
+        int val, result;
+        int *vp1;
+
+        int params[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        // value
+        IteratorInt it1 = IteratorIntNew();
+
+        // free
+        freeIt(it1);
+
+        reset(it1);
+        // printf("address of it1 %p\n",&it1);
+        result = hasNext(it1);
+        fail_unless(result == 0, "error, hasNext(it1) != 0");
+
+        // printf("address of it1 %p \n",&it1);
+        result = hasPrevious(it1);
+        // printf("address of it1 %p \n",&it1);
+        // print(it1);
+        fail_unless(result == 0, "error, hasPrevious(it1) != 0,result value is %d",result);
+
+        vp1 = next(it1);
+        fail_unless(vp1 == NULL, "error, next(it1) != NULL");
+
+        vp1 = previous(it1);
+        fail_unless(vp1 == NULL, "error, previous(it1) != NULL");
+
+        vp1 = findNext(it1,1000);
+        fail_unless(vp1 == NULL, "error, findNext(it1,1000 != NULL");
+
+        vp1 = findPrevious(it1,1000);
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,1000 != NULL");
+
+        result = deleteElm(it1);
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        result = set(it1,1);
+        fail_unless(result == 0, "error, set(it1,1)!= 0");
+
+        // add
+        result = add(it1,1);
+        fail_unless(result == 0, "error, add(it1,1)!= 0");
+
+        // 再次free
+        freeIt(it1);
+
+        reset(it1);
+
+
+        // ren new again
+        it1 = IteratorIntNew();
+
+        for (int i = 0; i < 10; i++) {
+            result = add(it1, params[i]);
+                    fail_unless(result == 1, "error, add(it1, %d) != 1", params[i]);
+        }
+
+        reset(it1);
+
+        // free
+        freeIt(it1);
+
+        reset(it1);
+
+        result = hasNext(it1);
+                fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        result = hasPrevious(it1);
+                fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        vp1 = next(it1);
+                fail_unless(vp1 == NULL, "error, next(it1) != NULL");
+
+        vp1 = previous(it1);
+                fail_unless(vp1 == NULL, "error, previous(it1) != NULL");
+
+        vp1 = previous(it1);
+                fail_unless(vp1 == NULL, "error, previous(it1) != NULL");
+
+        vp1 = findNext(it1,1000);
+                fail_unless(vp1 == NULL, "error, findNext(it1,1000 != NULL");
+
+        vp1 = findPrevious(it1,1000);
+                fail_unless(vp1 == NULL, "error, findPrevious(it1,1000 != NULL");
+
+        result = deleteElm(it1);
+                fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        result = set(it1,1);
+                fail_unless(result == 0, "error, set(it1,1)!= 0");
+
+        // add
+        result = add(it1,1);
+                fail_unless(result == 0, "error, add(it1,1)!= 0");
+
+        reset(it1);
+
+        freeIt(it1);
+
+        reset(it1);
+    }
+END_TEST
+
 
 
 Suite *make_add_suite(void) {
@@ -815,6 +935,9 @@ Suite *make_add_suite(void) {
 
     // 测试delete
     tcase_add_test(tc_case, test_delete_case);
+
+    // 测试free
+    tcase_add_test(tc_case, test_free_case);
 
     // 测试next,previous,find next,find previous 的操作
     tcase_add_test(tc_case, test_find_previous_next_case);
