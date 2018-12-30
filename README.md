@@ -2,9 +2,7 @@
 
 有想参加周末COMP9024 免费打卡的，可以加我下面的微信，我拉到打卡群
 
-![Alt text](https://github.com/marey/COMP9024_TEST/blob/master/my_wechat.jpg)
-
-<img src = 'https://github.com/marey/COMP9024_TEST/blob/master/my_wechat.jpg' />
+<img src = 'https://github.com/marey/COMP9024_TEST/blob/master/my_wechat.jpg' height='300',with='300' />
 
 
 此git仓库主要是存放测试相关的case文件，主要采用的是c语言的check测试框架
