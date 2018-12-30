@@ -113,7 +113,7 @@ int main(void) {
 }
 ```
 
-- make leak 内存泄漏测试测试
+- make leak 内存泄漏测试
 
 测试环境：学校机房环境
 
