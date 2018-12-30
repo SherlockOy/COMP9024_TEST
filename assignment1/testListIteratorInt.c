@@ -2,7 +2,7 @@
 // Created by 牟瑞 on 2018-12-19.
 //
 
-#include "/usr/local/include/check.h"
+#include "/import/cage/4/z5144248/Documents/check/build/src/check.h"
 #include "listIteratorInt.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -919,22 +919,22 @@ Suite *make_add_suite(void) {
 
     // 测试用例加到测试集中
     // 测试添加数据
-    // tcase_add_test(tc_case, test_add);
+    tcase_add_test(tc_case, test_add);
 
     // 测试初始化为空的情况
-    // tcase_add_test(tc_case, test_iterator_init_null);
+    tcase_add_test(tc_case, test_iterator_init_null);
     // 测试老师给定的case
-    // tcase_add_test(tc_case, test_teacher_given_cases);
+    tcase_add_test(tc_case, test_teacher_given_cases);
     // 测试用例加到测试集中
-    // tcase_add_test(tc_case, test_next_case);
+    tcase_add_test(tc_case, test_next_case);
     // 测试find next
-    // tcase_add_test(tc_case, test_find_next_case);
+    tcase_add_test(tc_case, test_find_next_case);
 
     // 测试set 的操作
-    // tcase_add_test(tc_case, test_set_cases);
+    tcase_add_test(tc_case, test_set_cases);
 
     // 测试delete
-    // tcase_add_test(tc_case, test_delete_case);
+    tcase_add_test(tc_case, test_delete_case);
 
     // 测试free
     tcase_add_test(tc_case, test_free_case);
@@ -943,10 +943,10 @@ Suite *make_add_suite(void) {
     tcase_add_test(tc_case, test_free_case);
 
     // 测试next,previous,find next,find previous 的操作
-    // tcase_add_test(tc_case, test_find_previous_next_case);
+    tcase_add_test(tc_case, test_find_previous_next_case);
 
     // test find previous
-    // tcase_add_test(tc_case, test_find_previous_case);
+    tcase_add_test(tc_case, test_find_previous_case);
 
     return s;
 }
