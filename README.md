@@ -1,5 +1,5 @@
-# COMP9024_TEST
-<span style="color:red">说明</span>：
+# 说明：
+
 此git仓库主要是存放测试相关的case文件，主要采用的是c语言的check测试框架
 check测试框架的官方地址为：https://libcheck.github.io/check/
 
@@ -9,7 +9,14 @@ Mac操作系统的check安装命令：brew install check
 
 针对assignment1的测试，将listIteratorInt.c文件到assignment1里面
 
+该assignment的测试分为两个部分：make test的功能测试和make leak 的内存泄漏测试。
+
+- make test 功能测试部分
+
+测试环境：本地环境：linux系统或者mac系统（特别注意，学校机房不支持check，因此该脚本不支持学校机房check）
+
 运行：make test
+
 运行：./murui_test.out 即可出现测试结果
 
 ```
@@ -105,6 +112,36 @@ int main(void) {
 
 }
 ```
+
+- make leak 内存泄漏测试测试
+
+测试环境：学校机房环境
+
+（特别注意，个人笔记本的C环境随着操作系统的不同，会做很多优化，特别是mac系统，因此不建议在本地做测试，请务必在学校机房通过该测试）
+
+运行工具：valgrind 学校机房已经安装
+
+运行：make leak
+
+运行：valgrind --leak-check=full ./murui_leck.out 即可出现测试结果
+
+```
+==30325== Using Valgrind-3.12.0.SVN and LibVEX; rerun with -h for copyright info
+==30325== Command: ./murui_leck.out
+==30325== 
+==30325== 
+==30325== HEAP SUMMARY:
+==30325==     in use at exit: 0 bytes in 0 blocks
+==30325==   total heap usage: 166 allocs, 166 frees, 1,408 bytes allocated
+==30325== 
+==30325== All heap blocks were freed -- no leaks are possible
+==30325== 
+==30325== For counts of detected and suppressed errors, rerun with: -v
+==30325== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
+
+出现上述的信息，即可表示测试通过，否则，代码存在内存泄漏，需要修改相关代码
+
 
 
 
