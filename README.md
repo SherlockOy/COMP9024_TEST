@@ -1,5 +1,10 @@
 # 说明：
 
+有想参加周末COMP9024 免费打卡的，可以加我下面的微信，我拉到打卡群
+
+![Alt text](https://github.com/marey/COMP9024_TEST/blob/master/my_wechat.jpg)
+
+
 此git仓库主要是存放测试相关的case文件，主要采用的是c语言的check测试框架
 check测试框架的官方地址为：https://libcheck.github.io/check/
 
