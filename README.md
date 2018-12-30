@@ -1,6 +1,6 @@
 # 说明：
 
-有想参加周末COMP9024 免费打卡的，可以加我下面的微信，我拉到打卡群
+有想参加周末COMP9024 免费打卡的，可以加我下面的微信，我拉到免费的周末打卡群
 
 <img src="https://github.com/marey/COMP9024_TEST/blob/master/my_wechat.jpg" height="300" with="300" />
 
