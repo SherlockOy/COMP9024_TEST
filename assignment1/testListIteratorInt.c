@@ -813,6 +813,8 @@ START_TEST(test_free_case)
         // free
         freeIt(it1);
 
+        it1 = NULL;
+
         reset(it1);
         // printf("address of it1 %p\n",&it1);
         result = hasNext(it1);
@@ -849,6 +851,8 @@ START_TEST(test_free_case)
         // 再次free
         freeIt(it1);
 
+        it1 = NULL;
+
         reset(it1);
 
 
@@ -864,6 +868,8 @@ START_TEST(test_free_case)
 
         // free
         freeIt(it1);
+
+        it1 = NULL;
 
         reset(it1);
 
@@ -901,6 +907,8 @@ START_TEST(test_free_case)
         reset(it1);
 
         freeIt(it1);
+
+        it1 = NULL;
 
         reset(it1);
     }
