@@ -1,6 +1,6 @@
 objects = listIteratorInt.o testListIteratorInt.o
 test : $(objects)
-	gcc -o murui_test.out $(objects) -lcheck
+	gcc -Wall -Werror -g -o murui_test.out $(objects) -lcheck
 
 testListIteratorInt.o: testListIteratorInt.c
 
