@@ -947,9 +947,6 @@ Suite *make_add_suite(void) {
     // 测试free
     tcase_add_test(tc_case, test_free_case);
 
-    // 测试free
-    tcase_add_test(tc_case, test_free_case);
-
     // 测试next,previous,find next,find previous 的操作
     tcase_add_test(tc_case, test_find_previous_next_case);
 
