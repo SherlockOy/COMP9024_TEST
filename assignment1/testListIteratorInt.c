@@ -2,7 +2,7 @@
 // Created by 牟瑞 on 2018-12-19.
 //
 
-#include "/usr/local/include/check.h"
+#include <check.h>
 #include "listIteratorInt.h"
 #include <stdlib.h>
 #include <stdio.h>
