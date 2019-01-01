@@ -2,7 +2,7 @@
 // Created by 牟瑞 on 2018-12-19.
 //
 
-#include "/usr/local/include/check.h"
+#include <check.h>
 #include "listIteratorInt.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -697,11 +697,11 @@ START_TEST(test_set_cases)
                 fail_unless(*vp1 == 12, "error, findPrevious(it1,12) != 12, current value is :%d", *vp1);
 
         result = set(it1, 1200);
-        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        // 1001 ^ 1200 1100 5 14 10 5 9 1000
                 fail_unless(result == 1, "error, set(it1,1200) != 1");
 
         result = set(it1, 1500);
-        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        // 1001 ^ 1200 1100 5 14 10 5 9 1000
                 fail_unless(result == 0, "error, set(it1,1500) != 0");
 
         vp1 = findNext(it1, 1000);
@@ -721,14 +721,45 @@ START_TEST(test_set_cases)
         // 1001 1200 1100 5 14 10 5 9 ^ 1000
                 fail_unless(*vp1 == 1000, "error, previous(it1) != 1000, current value is :%d", *vp1);
 
-
         result = add(it1, 10000);
-        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1500
+        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1000
                 fail_unless(result == 1, "error, set(it1,1200) != 1");
 
         result = set(it1, 20000);
-        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1500
+        // 1001 1200 1100 5 14 10 5 9 10000 ^ 1000
                 fail_unless(result == 0, "error, set(it1,20000) != 0");
+
+
+        vp1 = next(it1);
+        // 1001 1200 1100 5 14 10 5 9 10000 1000 ^
+                fail_unless(*vp1 == 1000, "error, next(it1) != 1000, current value is :%d", *vp1);
+
+        vp1 = next(it1);
+        // 1001 1200 1100 5 14 10 5 9 10000 1000 ^
+                fail_unless(vp1 == NULL, "error, next(it1) != NULL");
+
+        result = set(it1, 200);
+        // 1001 1200 1100 5 14 10 5 9 1000 ^
+                fail_unless(result == 0, "error, set(it1,200) != 0");
+
+        reset(it1);
+        // ^ 1001 1200 1100 5 14 10 5 9 1000
+
+        vp1 = next(it1);
+        // 1001 ^ 1200 1100 5 14 10 5 9 1000
+                fail_unless(*vp1 == 1001, "error, next(it1) != 1001, current value is :%d", *vp1);
+
+        vp1 = previous(it1);
+        // ^ 1001 1200 1100 5 14 10 5 9 1000
+                fail_unless(*vp1 == 1001, "error, previous(it1) != 1001, current value is :%d", *vp1);
+
+        vp1 = previous(it1);
+        // ^ 1001 1200 1100 5 14 10 5 9 1000
+                fail_unless(vp1 == NULL, "error, previous(it1) != NULL");
+
+        result = set(it1, 300);
+        // ^ 1001 1200 1100 5 14 10 5 9 1000
+                fail_unless(result == 0, "error, set(it1,300) != 0");
 
         freeIt(it1);
 
@@ -793,7 +824,32 @@ START_TEST(test_delete_case)
         fail_unless(result == 1, "error, deleteElm(it1) != 1");
 
         result = set(it1, 2000);
+        // 1 2 3 4 5 6 7 8 ^
         fail_unless(result == 0, "error, set(it1, 2000) != 0");
+
+        vp1 = findPrevious(it1, 5);
+        // 1 2 3 4 ^ 5 6 7 8
+        fail_unless(*vp1 == 5, "error, findPrevious(it1,5) != 5, current value is :%d", *vp1);
+
+        vp1 = findPrevious(it1, 5);
+        // 1 2 3 4 ^ 5 6 7 8
+        fail_unless(vp1 == NULL, "error, findPrevious(it1,5) != NULL");
+
+        result = deleteElm(it1);
+        // 1 2 3 4 ^ 5 6 7 8
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
+
+        vp1 = findNext(it1, 5);
+        // 1 2 3 4 5 ^ 6 7 8
+                fail_unless(*vp1 == 5, "error, findNext(it1,5) != 5, current value is :%d", *vp1);
+
+        vp1 = findNext(it1, 5);
+        // 1 2 3 4 5 ^ 6 7 8
+        fail_unless(vp1 == NULL, "error, findNext(it1,5) != NULL");
+
+        result = deleteElm(it1);
+        // 1 2 3 4 5 ^ 6 7 8
+        fail_unless(result == 0, "error, deleteElm(it1) != 0");
 
         freeIt(it1);
     }
