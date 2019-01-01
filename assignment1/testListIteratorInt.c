@@ -697,11 +697,11 @@ START_TEST(test_set_cases)
                 fail_unless(*vp1 == 12, "error, findPrevious(it1,12) != 12, current value is :%d", *vp1);
 
         result = set(it1, 1200);
-        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        // 1001 ^ 1200 1100 5 14 10 5 9 1000
                 fail_unless(result == 1, "error, set(it1,1200) != 1");
 
         result = set(it1, 1500);
-        // 1001 1200 1100 ^ 5 14 10 5 9 1000
+        // 1001 ^ 1200 1100 5 14 10 5 9 1000
                 fail_unless(result == 0, "error, set(it1,1500) != 0");
 
         vp1 = findNext(it1, 1000);
