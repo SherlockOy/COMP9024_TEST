@@ -660,13 +660,13 @@ START_TEST(test_set_cases)
                 fail_unless(result == 1, "error, hasPrevious(it1) != 1");
 
         result = set(it1, 1001);
-                fail_unless(result == 0, "error, set(it1,1000) != 0");
+                fail_unless(result == 0, "error, set(it1,1001) != 0");
 
         // ^ 20 12 15 5 14 10 5 9 1000
         reset(it1);
 
         result = set(it1, 1001);
-                fail_unless(result == 0, "error, set(it1,1000) != 0");
+                fail_unless(result == 0, "error, set(it1,1001) != 0");
 
         vp1 = next(it1);
         // 20 ^ 12 15 5 14 10 5 9 1000
@@ -674,7 +674,7 @@ START_TEST(test_set_cases)
 
         result = set(it1, 1001);
         // 1001 ^ 12 15 5 14 10 5 9 1000
-                fail_unless(result == 1, "error, set(it1,1000) != 1");
+                fail_unless(result == 1, "error, set(it1,1001) != 1");
 
         vp1 = previous(it1);
         // ^ 1001 12 15 5 14 10 5 9 1000
